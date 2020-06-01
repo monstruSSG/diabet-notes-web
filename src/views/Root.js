@@ -1,10 +1,18 @@
 import React from 'react'
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+
+import Login from './Login/Login'
+import Dashboard from './Dashboard/Dasboard'
 
 let Root = props => {
     return (
-        <div>
-            Ana are mere multe
-        </div>
+        <Router>
+            <Switch>
+                <Route path="/" exact component={Dashboard} />
+                <Route path="/login" exact component={Login} />
+                <Redirect from="*" to={Dashboard} />
+            </Switch>
+        </Router>
     )
 }
 
