@@ -1,7 +1,10 @@
 import React from 'react'
 import { withStyles, Typography } from '@material-ui/core'
+import { connect } from 'react-redux'
 
 import Form from '../../common/FormGenerator'
+import * as USER_REQUESTS from '../../requests/user'
+import * as USER from '../../store/actions/user'
 
 let Login = props => {
     let { classes } = props
@@ -14,12 +17,20 @@ let Login = props => {
                 </div>
                 <div className={classes.form}>
                     <div className={classes.formContainer}>
-                        <Form 
+                        <Form
                             fields={[
-                                {name: 'email', label: 'Email'},
-                                {name: 'password', label: 'Password'}
+                                { name: 'email', label: 'Email' },
+                                { name: 'password', label: 'Password' }
                             ]}
                             submitText={'Login'}
+                            onSubmit={async data => {
+
+                                let result = await USER_REQUESTS.login(data.email, data.password)
+
+                                localStorage.setItem('token', result.token)
+
+                                props.signIn(result.token)
+                            }}
                         />
                     </div>
                 </div>
@@ -74,4 +85,12 @@ const styles = theme => ({
     }
 })
 
-export default withStyles(styles)(Login)
+const mapStateToProps = state => ({
+    user: state.user
+});
+
+const mapDispatchToProps = dispatch => ({
+    signIn: token => dispatch(USER.signIn(token))
+});
+
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(Login));

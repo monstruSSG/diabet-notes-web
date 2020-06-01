@@ -38,7 +38,7 @@ let FormGenerator = props => {
              value={field.value}
              className={props.classes.input} />)}
            
-            <Button variant='contained' className={props.classes.button} onClick={onSubmit}>{props.submitText}</Button>
+            <Button variant='contained' className={props.classes.button} onClick={() => props.onSubmit(onSubmit())}>{props.submitText}</Button>
         </div>
     )
 }
