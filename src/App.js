@@ -1,13 +1,14 @@
 import React from 'react';
+import { Provider } from 'react-redux'
 
-import logo from './logo.svg';
-import './App.css';
+import Root from './views/Root'
+import store from './store/configure'
 
-function App() {
+let App = () => {
   return (
-    <div className="App">
-      asdasdasd
-    </div>
+    <Provider store={store}>
+      <Root />
+    </Provider>
   );
 }
 
