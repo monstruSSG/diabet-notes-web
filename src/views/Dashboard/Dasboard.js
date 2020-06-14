@@ -19,12 +19,14 @@ let Dashboard = props => {
     return (
         <div className={classes.container}>
             <div className={classes.header}>
-                <Header />
+                <Header
+                    count={me.appointments ? me.appointments.length : 0}
+                />
             </div>
             <div className={classes.contentContainer}>
                 <div className={classes.subContent}>
 
-                    <Table 
+                    <Table
                         rows={me.appointments || []}
                     />
 
