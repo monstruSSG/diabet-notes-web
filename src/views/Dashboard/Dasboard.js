@@ -11,7 +11,6 @@ let Dashboard = props => {
 
     React.useEffect(() => {
         USER_REQUESTS.getMe().then(result => {
-            console.log(result)
             setMe(result)
         })
     }, [])
@@ -28,6 +27,18 @@ let Dashboard = props => {
 
                     <Table
                         rows={me.appointments || []}
+                        onElementCheck={async (id, value) => {
+                            await USER_REQUESTS.updateAppointment(id, value)
+
+                            let result = await USER_REQUESTS.getMe()
+                            setMe(result)
+                        }}
+                        onDateChanged={async (id, value) => {
+                            await USER_REQUESTS.updateAppointment(id, null, value)
+
+                            let result = await USER_REQUESTS.getMe()
+                            setMe(result)
+                        }}
                     />
 
                 </div>
