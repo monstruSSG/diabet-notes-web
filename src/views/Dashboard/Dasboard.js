@@ -1,12 +1,20 @@
 import React from 'react'
-import { Grid, Typography } from '@material-ui/core'
 import { withStyles } from '@material-ui/core'
 
 import Header from './AppBar/AppBar'
 import Table from '../../common/Table'
+import * as USER_REQUESTS from '../../requests/user'
 
 let Dashboard = props => {
     let { classes } = props
+    let [me, setMe] = React.useState({})
+
+    React.useEffect(() => {
+        USER_REQUESTS.getMe().then(result => {
+            console.log(result)
+            setMe(result)
+        })
+    }, [])
 
     return (
         <div className={classes.container}>
@@ -16,7 +24,9 @@ let Dashboard = props => {
             <div className={classes.contentContainer}>
                 <div className={classes.subContent}>
 
-                    <Table />
+                    <Table 
+                        rows={me.appointments || []}
+                    />
 
                 </div>
             </div>

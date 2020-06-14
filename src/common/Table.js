@@ -14,37 +14,11 @@ const useStyles = makeStyles({
     },
 });
 
-const rows = [
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-
-    {},
-    {},
-    {},
-    {},
-    {},
-
-    {},
-    {},
-    {},
-    {},
-    {},
-];
-
-export default function SimpleTable() {
+export default function SimpleTable(props) {
     const classes = useStyles();
+
+    React.useEffect(() => {
+    }, [props.rows])
 
     return (
         <TableContainer component={Paper}>
@@ -62,16 +36,16 @@ export default function SimpleTable() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
+                    {props.rows && props.rows.map((row) => (
                         <TableRow key={row.name}>
                             <TableCell component="th" scope="row">
                                 Y
                             </TableCell>
-                            <TableCell align="left">Andreescu</TableCell>
-                            <TableCell align="left">Andreea</TableCell>
+                            <TableCell align="left">{row.patient.firstName}</TableCell>
+                            <TableCell align="left">{row.patient.lastName}</TableCell>
                             <TableCell align="left">10/22/2012</TableCell>
                             <TableCell align="left">Am facut hipo</TableCell>
-                            <TableCell align="left">0728399266</TableCell>
+                            <TableCell align="left">{row.patient.phoneNumber}</TableCell>
                             <TableCell align="left">12/12/2002</TableCell>
                             <TableCell align="left">202 mg/DLm</TableCell>
                         </TableRow>
